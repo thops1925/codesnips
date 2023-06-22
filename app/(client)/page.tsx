@@ -2,11 +2,9 @@ import Feed from '@app/components/Feed';
 import { desc } from '@lib/desc';
 import logo from '@public/assets/images/thops3.png';
 import Image from 'next/image';
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
 
 async function getData() {
-	const res = await fetch('http://localhost:3000/api/prompt', { next: { revalidate: 10 } });
+	const res = await fetch('http://localhost:3000/api/prompt', { cache: 'no-store' });
 	if (!res.ok) {
 		throw new Error('Failed to fetch data');
 	}
@@ -14,7 +12,7 @@ async function getData() {
 }
 
 const Home = async () => {
-	const data = await getData();
+	const data: Post[] = await getData();
 	console.log(data);
 
 	return (

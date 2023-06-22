@@ -9,7 +9,7 @@ datasource db {
 
 model Prompt {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
-  v       Int     @map("__v")
+  v       Int?     @map("__v")
   creator User    @relation(fields: [creatorId], references: [id])
   creatorId String @map("creator") @db.ObjectId
   prompt  String
