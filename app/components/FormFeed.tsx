@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Form from '@app/components/Form';
 
 const FormFeed = () => {
+	const router = useRouter();
 	const { data: session } = useSession();
 
 	const [submitting, setIsSubmitting] = useState(false);
@@ -25,7 +26,7 @@ const FormFeed = () => {
 				}),
 			});
 			if (response.ok) {
-				redirect('/');
+				router.push('/');
 			}
 		} catch (error) {
 			console.log(error);

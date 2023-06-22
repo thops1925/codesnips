@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function GET(request) {
+export async function GET() {
     try {
         // Connect to the database (not necessary with Prisma as it manages the connection internally)
         // await connectToDB();
