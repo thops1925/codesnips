@@ -1,11 +1,15 @@
 'use client';
 import Feed from '@app/components/Feed';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon } from 'react-share';
 
 const TagProfile = ({ params }: any) => {
+	const router = useRouter();
+	const { data: session } = useSession();
 	const id = params.id;
 	const [copy, setCopy] = useState<string>('');
 	const [data, setData] = useState({});
@@ -32,19 +36,21 @@ const TagProfile = ({ params }: any) => {
 	}, [id]);
 
 	console.log(data);
-	const { prompt, tag, creator }: tag = data || {};
+	const { prompt, tag, creator, creatorId }: tag = data || {};
 
 	if (loading) {
 		return <div>Loading...</div>;
 	}
 
+	const handleProfile = () => {
+		if (creatorId === session?.user.id) return router.push('/profile');
+		router.push(`/profile/user/${creatorId}?name=${creator.username}`);
+	};
 	return (
 		<section className='flex justify-center items-center container sm:container lg:container md:container mx-auto'>
 			<div className='flex-1 flex-col mx-4' key={id}>
 				<div className='flex gap-3 justify-center items-center mb-4'>
-					<Link href='/profile'>
-						<Image src={creator?.image} alt={id} width={40} height={40} className='rounded-full object-contain' />
-					</Link>
+					<Image src={creator?.image} alt={id} width={40} height={40} className='rounded-full object-contain' onClick={handleProfile} />
 					<div className='flex flex-col max-w-xl min-w-md'>
 						<h3 className='font-semibold text-lg capitalize'>{creator?.username.slice(0, 6)}</h3>
 						<p className=' text-gray-400 text-lg'>{creator?.email}</p>{' '}
@@ -84,7 +90,6 @@ const TagProfile = ({ params }: any) => {
 						<TwitterIcon size={32} round={true} />
 					</TwitterShareButton>
 				</div>
-				<Feed />
 			</div>
 		</section>
 	);
