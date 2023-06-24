@@ -25,13 +25,13 @@ const Prompt = ({ post, handleEdit, handleDelete }: Props) => {
 	};
 
 	const handleProfile = () => {
-		if (post.creator._id === session?.user.id) return router.push('/profile');
-		router.push(`/profile/user/${post.creator._id}?name=${post.creator.username}`);
+		if (post.creatorId === session?.user.id) return router.push('/profile');
+		router.push(`/profile/user/${post.creatorId}?name=${post.creator.username}`);
 	};
 
-	const handleTagClick = (tag: any) => {
-		console.log(tag);
-		router.push(`/profile/tag/${tag}?tag=${post.creator.username}`);
+	const handleTagClick = (id: any) => {
+		console.log(id);
+		router.push(`/profile/tag/${id}?tag=${post.creator.username}`);
 	};
 
 	return (
@@ -39,7 +39,7 @@ const Prompt = ({ post, handleEdit, handleDelete }: Props) => {
 			<div className='flex justify-between items-start gap-5' onClick={handleProfile}>
 				<div className='flex flex-row justify-center items-center gap-3 cursor-pointer'>
 					<Link href='/profile'>
-						<Image src={post.creator.image} alt={post._id} width={40} height={40} className='rounded-full object-contain' />
+						<Image src={post.creator.image} alt={post.id} width={40} height={40} className='rounded-full object-contain' />
 					</Link>
 					<div className='flex flex-col '>
 						<h3 className='font-satoshi font-semibold text-gray-900 '>{post.creator.username.slice(0, 6)}</h3>
@@ -65,7 +65,7 @@ const Prompt = ({ post, handleEdit, handleDelete }: Props) => {
 					)}
 				</div>
 			</div>
-			<p className='text-normal text-sky-500 font-bold my-4 cursor-pointer capitalize' onClick={() => handleTagClick && handleTagClick(post._id)}>
+			<p className='text-normal text-sky-500 font-bold my-4 cursor-pointer capitalize' onClick={() => handleTagClick && handleTagClick(post.id)}>
 				{post.tag}
 			</p>
 			<div className={`${line ? ' bg-slate-700 py-4 rounded-lg' : ''}`} onClick={() => setLine(!line)}>
@@ -74,7 +74,7 @@ const Prompt = ({ post, handleEdit, handleDelete }: Props) => {
 				</code>
 			</div>
 
-			{session?.user.id === post.creator._id && pathname === '/profile' && (
+			{session?.user.id === post.creator.id && pathname === '/profile' && (
 				<div className='flex flex-row gap-3 mt-3'>
 					<p className='rounded-full font-bold tracking-wide border border-black  px-5 py-3 h-12 cursor-pointer' onClick={handleEdit}>
 						Edit

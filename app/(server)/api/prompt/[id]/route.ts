@@ -1,6 +1,3 @@
-import Prompt from '@models/prompt';
-import { connectToDB } from '@app/utils/database';
-import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();

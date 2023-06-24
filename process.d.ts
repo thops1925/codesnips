@@ -104,10 +104,10 @@ interface OAuthConfig {
 
 type Post = {
 	// [x: string]: any;
-	_id: string;
+	id: string;
 	creatorId: string;
 	creator: {
-		_id: string;
+		id: string;
 		email: string;
 		username: string;
 		image: string;
@@ -115,3 +115,13 @@ type Post = {
 	prompt: string;
 	tag: string;
 };
+
+type tag = {
+	prompt: string;
+	tag: string;
+	creator: {
+		image: string;
+		username: string;
+		email: string;
+	};
+}

@@ -1,5 +1,4 @@
 'use client';
-
 import Profile from '@app/components/Profile';
 import { desc } from '@lib/desc';
 import { useSession } from 'next-auth/react';
@@ -22,7 +21,7 @@ const MyProfile = () => {
 	}, [id]);
 
 	const handleEdit = (id: Post) => {
-		router.push(`/update-prompt?id=${id._id}`);
+		router.push(`/update-prompt?id=${id.id}`);
 	};
 
 	const handleDelete = async (id: Post) => {
@@ -30,10 +29,10 @@ const MyProfile = () => {
 
 		if (hasConfirm) {
 			try {
-				await fetch(`/api/prompt/${id._id}`, {
+				await fetch(`/api/prompt/${id.id}`, {
 					method: 'DELETE',
 				});
-				const filteredPosts = post.filter((item: Post) => item._id !== id._id);
+				const filteredPosts = post.filter((item: Post) => item.id !== id.id);
 
 				setPost(filteredPosts);
 			} catch (error) {

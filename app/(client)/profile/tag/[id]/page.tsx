@@ -1,29 +1,53 @@
 'use client';
 import Feed from '@app/components/Feed';
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon } from 'react-share';
 
 const TagProfile = ({ params }: any) => {
 	const id = params.id;
-	const [copy, setCopy] = useState('');
-	const { data, isLoading } = useQuery(['tag'], () => fetch(`/api/tag/${id}/posts`).then((res) => res.json()));
+	const [copy, setCopy] = useState<string>('');
+	const [data, setData] = useState({});
+	const [loading, setLoading] = useState(true);
 
-	if (isLoading && !data) return <div>loading</div>;
-	const { creator, prompt, tag }: Post = data;
+	const getData = async (id: any) => {
+		try {
+			const res = await fetch(`/api/tag/${id}/posts`);
+			if (res.ok) {
+				const responseData: Post = await res.json();
+				setData(responseData);
+			} else {
+				console.log('Failed to fetch data');
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		getData(id);
+	}, [id]);
+
+	console.log(data);
+	const { prompt, tag, creator }: tag = data || {};
+
+	if (loading) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<section className='flex justify-center items-center container sm:container lg:container md:container mx-auto'>
-			<div className='flex-1 flex-col mx-4' key={data._id}>
+			<div className='flex-1 flex-col mx-4' key={id}>
 				<div className='flex gap-3 justify-center items-center mb-4'>
 					<Link href='/profile'>
-						<Image src={creator.image} alt={data._id} width={40} height={40} className='rounded-full object-contain' />
+						<Image src={creator?.image} alt={id} width={40} height={40} className='rounded-full object-contain' />
 					</Link>
 					<div className='flex flex-col max-w-xl min-w-md'>
-						<h3 className='font-semibold text-lg capitalize'>{creator.username.slice(0, 6)}</h3>
-						<p className=' text-gray-400 text-lg'>{creator.email}</p>{' '}
+						<h3 className='font-semibold text-lg capitalize'>{creator?.username.slice(0, 6)}</h3>
+						<p className=' text-gray-400 text-lg'>{creator?.email}</p>{' '}
 					</div>
 
 					<div
@@ -52,11 +76,11 @@ const TagProfile = ({ params }: any) => {
 					<div className='whitespace-pre-wrap inset-0 break-words text-green-600'>{prompt}</div>
 				</div>
 				<div className='mx-4 space-x-4 mt-4'>
-					<FacebookShareButton title={tag} url={`https://codesnip-alpha.vercel.app/profile/tag/${data._id}?tag=${creator.username}`}>
+					<FacebookShareButton title={tag} url={`https://codesnip-alpha.vercel.app/profile/tag/${id}?tag=${creator?.username}`}>
 						<FacebookIcon size={32} round={true} />
 					</FacebookShareButton>
 
-					<TwitterShareButton title={tag} url={`https://codesnip-alpha.vercel.app/profile/tag/${data._id}?tag=${creator.username}`}>
+					<TwitterShareButton title={tag} url={`https://codesnip-alpha.vercel.app/profile/tag/${id}?tag=${creator?.username}`}>
 						<TwitterIcon size={32} round={true} />
 					</TwitterShareButton>
 				</div>
