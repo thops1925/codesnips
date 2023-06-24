@@ -25,6 +25,7 @@ const FormFeed = () => {
 					tag: post.tag,
 				}),
 			});
+
 			if (response.ok) {
 				router.push('/');
 			}

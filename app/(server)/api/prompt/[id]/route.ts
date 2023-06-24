@@ -1,6 +1,9 @@
 import Prompt from '@models/prompt';
 import { connectToDB } from '@app/utils/database';
 import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 type body = {
 	prompt: string;
@@ -10,29 +13,40 @@ type body = {
 // search
 export async function GET(req: Request, { params }: any) {
 	try {
-		await connectToDB();
-		const prompt = await Prompt.findById(params.id).populate('creator');
-		if (!prompt) return new Response('Prompt not fount', { status: 404 });
-		return NextResponse.json(prompt, { status: 200 });
+		const prompt = await prisma.prompt.findUnique({
+			where: { id: params.id },
+			include: { creator: true },
+		});
+
+		if (!prompt) {
+			return new Response('Prompt not found', { status: 404 });
+		}
+
+		return new Response(JSON.stringify(prompt), { status: 200 });
 	} catch (error) {
 		console.log(error);
 	}
 }
-
 // update
 export async function PATCH(req: Request, { params }: any) {
 	const body: body = await req.json();
 	const { prompt, tag } = body;
-	try {
-		await connectToDB();
-		const exist = await Prompt.findById(params.id);
-		if (!exist) return new Response('Prompt not fount', { status: 404 });
-		exist.prompt = prompt;
-		exist.tag = tag;
-		await exist.save();
 
-		// const prompt = await Prompt.findById(params.id).populate('creator');
-		return NextResponse.json(exist, { status: 200 });
+	try {
+		const exist = await prisma.prompt.findUnique({
+			where: { id: params.id },
+		});
+
+		if (!exist) {
+			return new Response('Prompt not found', { status: 404 });
+		}
+
+		const updatedPrompt = await prisma.prompt.update({
+			where: { id: params.id },
+			data: { prompt, tag },
+		});
+
+		return new Response(JSON.stringify(updatedPrompt), { status: 200 });
 	} catch (error) {
 		console.log(error);
 	}
@@ -41,10 +55,11 @@ export async function PATCH(req: Request, { params }: any) {
 // delete
 export async function DELETE(req: Request, { params }: any) {
 	try {
-		await connectToDB();
-		await Prompt.findByIdAndRemove(params.id).populate('creator');
+		await prisma.prompt.delete({
+			where: { id: params.id },
+			include: { creator: true },
+		});
 		return new Response('Prompt Deleted', { status: 200 });
-		// return NextResponse.json(prompt, { status: 200 });
 	} catch (error) {
 		console.log(error);
 	}
