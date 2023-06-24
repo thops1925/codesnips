@@ -105,6 +105,7 @@ interface OAuthConfig {
 type Post = {
 	// [x: string]: any;
 	_id: string;
+	creatorId: string;
 	creator: {
 		_id: string;
 		email: string;
