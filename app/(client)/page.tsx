@@ -4,7 +4,7 @@ import logo from '@public/assets/images/thops3.png';
 import Image from 'next/image';
 
 async function getData() {
-	const res = await fetch('http://localhost:3000/api/prompt');
+	const res = await fetch('http://localhost:3000/api/prompt', { cache: 'no-store' });
 	if (!res.ok) {
 		throw new Error('Failed to fetch data');
 	}
