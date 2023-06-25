@@ -7,7 +7,6 @@ import { Suspense } from 'react';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-export const runtime = 'edge'; // 'nodejs' (default) | 'edge'
 
 // async function getData() {
 // 	const res = await fetch('http://localhost:3000/api/prompt', { cache: 'no-store' });
