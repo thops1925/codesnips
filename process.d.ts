@@ -116,12 +116,15 @@ type Post = {
 	tag: string;
 };
 
-type tag = {
-	prompt: string;
-	tag: string;
+
+
+type Tags = {} | {
+	creatorId: string;
 	creator: {
 		image: string;
 		username: string;
 		email: string;
 	};
-}
+	prompt: string;
+	tag: string;
+};

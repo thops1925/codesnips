@@ -1,24 +1,29 @@
 import Nav from '@app/components/Nav';
 import { Provider } from '@app/components/Provider';
 import '@styles/globals.css';
-import { Metadata } from 'next/dist/lib/metadata/types/metadata-interface';
-import Head from 'next/head';
 
-export const metadata: Metadata = {
+export const metadata = {
 	title: {
-		default: 'Code Alpha',
-		template: '%s | Next.js App Router',
+		default: 'codesnipe',
+		template: `%s | https://codesnip-alpha.vercel.app/`,
 	},
-	description: 'Code Snippet Sharing',
+	robots: {
+		follow: true,
+		index: true,
+	},
+	...('@hz12pst' &&
+		'https://codesnip-alpha.vercel.app/' && {
+			twitter: {
+				card: 'summary_large_image',
+				creator: '@hz12pst',
+				site: 'https://codesnip-alpha.vercel.app/',
+			},
+		}),
 };
 
 const RootLayout = ({ children }: any) => {
 	return (
 		<html lang='eng' suppressHydrationWarning={true}>
-			<Head>
-				<meta name='viewport' content='width=device-width, initial-scale=1' />
-			</Head>
-
 			<body className='inset-0 m-0 mx-auto max-w-7xl bg-gray-200 p-0 min-w-fit'>
 				<Provider>
 					<Nav />

@@ -16,6 +16,8 @@ const prisma = new PrismaClient();
 // 	return res.json();
 // }
 
+export const revalidate = 43200;
+
 const Home = async () => {
 	const data = await prisma.prompt.findMany({
 		include: { creator: true },

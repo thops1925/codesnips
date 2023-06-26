@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const POST = async (request: { json: () => PromiseLike<{ userId: any; prompt: any; tag: any; }> | { userId: any; prompt: any; tag: any; }; }) => {
+export const POST = async (request: Request) => {
 	const { userId, prompt, tag } = await request.json();
 
 	try {
