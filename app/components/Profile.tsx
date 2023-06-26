@@ -20,7 +20,7 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }: Props) => {
 				{data.map((post: Post) => (
 					<Prompt
 						post={post}
-						key={post._id}
+						key={post.id}
 						handleEdit={() => handleEdit && handleEdit(post)}
 						handleDelete={() => handleDelete && handleDelete(post)}
 					/>

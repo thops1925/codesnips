@@ -2,7 +2,6 @@
 import Feed from '@app/components/Feed';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon } from 'react-share';
@@ -12,7 +11,7 @@ const TagProfile = ({ params }: any) => {
 	const { data: session } = useSession();
 	const id = params.id;
 	const [copy, setCopy] = useState<string>('');
-	const [data, setData] = useState({});
+	const [data, setData] = useState<Tags>({});
 	const [loading, setLoading] = useState(true);
 
 	const getData = async (id: any) => {
@@ -36,7 +35,7 @@ const TagProfile = ({ params }: any) => {
 	}, [id]);
 
 	console.log(data);
-	const { prompt, tag, creator, creatorId }: tag = data || {};
+	const { creatorId, creator, prompt, tag }: Tags = data || {};
 
 	if (loading) {
 		return <div>Loading...</div>;
