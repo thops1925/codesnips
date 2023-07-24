@@ -1,18 +1,20 @@
+"use client"
 import Image from 'next/image';
 import logo from '@public/assets/images/thops3.png';
 import { useState } from 'react';
 import Link from 'next/link';
+import AuthProviders from './AuthProviders';
 
 type Props = {
-	provider: any;
+	session: any;
 	signOut: any;
 	signIn: any;
 };
-const MobileViewNav = ({ provider, signOut, signIn }: Props) => {
+const MobileViewNav = ({ session, signOut, signIn }: Props) => {
 	const [dropDown, setDropDown] = useState(false);
 	return (
 		<div className='relative mx-3 flex sm:hidden'>
-			{provider?.user ? (
+			{session?.user ? (
 				<div className='flex'>
 					<Image
 						src={logo}
@@ -44,17 +46,7 @@ const MobileViewNav = ({ provider, signOut, signIn }: Props) => {
 				</div>
 			) : (
 				<>
-					{/* <button
-						type='button'
-						key={provider.name}
-						onClick={() => signIn(provider.id)}
-						className='text-white rounded-full bg-black px-5 py-3 font-bold tracking-wide h-12'>
-						Sign In
-					</button> */}
-
-					<button onClick={() => signIn()} className='h-12 rounded-full bg-black px-5 py-3 font-bold tracking-wide text-white'>
-						Sign In
-					</button>
+					<AuthProviders />
 				</>
 			)}
 		</div>

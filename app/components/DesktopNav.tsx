@@ -2,16 +2,16 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import AuthProviders from './AuthProviders';
 
 type Props = {
-	providers: any;
+	session: any;
 	signOut: any;
 	signIn: any;
 };
 
-const DesktopNav = ({ providers, signOut, signIn }: Props) => {
-	const { data: session } = useSession();
+const DesktopNav = ({ session, signOut }: Props) => {
+
 	return (
 		<div className='sm:flex hidden'>
 			{session?.user ? (
@@ -36,18 +36,9 @@ const DesktopNav = ({ providers, signOut, signIn }: Props) => {
 				</div>
 			) : (
 				<>
-					{providers &&
-						Object.values(providers).map((provider: any) => (
-							<button
-								type='button'
-								key={provider.name}
-								onClick={() => {
-									signIn(provider.id);
-								}}
-								className='text-white rounded-full bg-black px-5 py-3 font-bold tracking-wide h-12'>
-								Sign in
-							</button>
-						))}
+					{session &&
+						<AuthProviders />
+					}
 				</>
 			)}
 		</div>

@@ -19,9 +19,7 @@ const prisma = new PrismaClient();
 export const revalidate = 43200;
 
 const Home = async () => {
-	const data = await prisma.prompt.findMany({
-		include: { creator: true },
-	});
+	const data = await prisma.prompt.findMany({});
 
 	return (
 		<section className='flex flex-col items-center justify-center w-full'>
