@@ -4,13 +4,15 @@ import logo from '@public/assets/images/thops3.png';
 import { useState } from 'react';
 import Link from 'next/link';
 import AuthProviders from './AuthProviders';
+import { signOut, } from 'next-auth/react';
+import Button from './Button';
+
 
 type Props = {
 	session: any;
-	signOut: any;
-	signIn: any;
 };
-const MobileViewNav = ({ session, signOut, signIn }: Props) => {
+const MobileViewNav = ({ session }: Props) => {
+
 	const [dropDown, setDropDown] = useState(false);
 	return (
 		<div className='relative mx-3 flex sm:hidden'>
@@ -32,21 +34,25 @@ const MobileViewNav = ({ session, signOut, signIn }: Props) => {
 							<Link href='/create-prompt' className=' h-12 font-bold capitalize tracking-wide' onClick={() => setDropDown(false)}>
 								Create Post
 							</Link>
-							<button
+
+
+							<Button
 								type='button'
-								className='h-12 rounded-full bg-black px-5 py-3 font-bold capitalize tracking-wide text-white'
-								onClick={() => {
+								title='Sign Out'
+								handleClick={() => {
 									setDropDown(false);
 									signOut();
-								}}>
-								Sign out
-							</button>
+								}}
+							/>
+
 						</div>
 					)}
 				</div>
 			) : (
 				<>
-					<AuthProviders />
+					{!session &&
+						<AuthProviders />
+					}
 				</>
 			)}
 		</div>

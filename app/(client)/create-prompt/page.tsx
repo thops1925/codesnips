@@ -44,7 +44,12 @@ const FormFeed = () => {
 			</div>
 		);
 
-	return <Form type='Create' post={post} setPost={setPost} submitting={submitting} handleSubmit={createPrompt} />;
+	return <Form
+		type='Create'
+		post={post}
+		setPost={setPost}
+		submitting={submitting}
+		handleSubmit={createPrompt} />;
 };
 
 export default FormFeed;

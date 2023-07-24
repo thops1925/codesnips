@@ -10,15 +10,15 @@ const TagProfile = ({ params }: any) => {
 	const router = useRouter();
 	const { data: session } = useSession();
 	const id = params.id;
-	const [copy, setCopy] = useState<string>('');
-	const [data, setData] = useState<Tags>({});
+	const [copy, setCopy] = useState<any>('');
+	const [data, setData] = useState<any>({});
 	const [loading, setLoading] = useState(true);
 
 	const getData = async (id: any) => {
 		try {
 			const res = await fetch(`/api/tag/${id}/posts`);
 			if (res.ok) {
-				const responseData: Post = await res.json();
+				const responseData: any = await res.json();
 				setData(responseData);
 			} else {
 				console.log('Failed to fetch data');
@@ -35,7 +35,7 @@ const TagProfile = ({ params }: any) => {
 	}, [id]);
 
 	console.log(data);
-	const { creatorId, creator, prompt, tag }: Tags = data || {};
+	const { creatorId, creator, prompt, tag }: any = data || {};
 
 	if (loading) {
 		return <div>Loading...</div>;

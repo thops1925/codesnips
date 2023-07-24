@@ -1,14 +1,11 @@
 import GoogleProvider from 'next-auth/providers/google';
-import { getServerSession } from 'next-auth/next';
-import { NextAuthOptions, User } from "next-auth";
+import type { NextAuthOptions, User } from "next-auth";
 import { AdapterUser } from 'next-auth/adapters';
+import { getServerSession } from "next-auth/next";
+import prisma from './prisma';
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient()
 
 export const authOptions: NextAuthOptions = {
-
 
     providers: [
         GoogleProvider({
@@ -16,39 +13,37 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_SECRET!,
         }),
     ],
+
     adapter: PrismaAdapter(prisma),
 
     callbacks: {
-
-        async session({ session }) {
-            // // store the user id from MongoDB to session
-            // const sessionUser = await User.findOne({ email: session.user.email });
-            // session.user.id = sessionUser._id.toString();
+        async session({ session, user }) {
+            // If you want to store the user ID from Prisma to the session
+            if (user) {
+                session.user.id = user.id;
+            }
             return session;
         },
 
         async signIn({ user }: { user: AdapterUser | User }) {
-
-            // console.log(user)
-            // return true
+            console.log(user)
             try {
                 const userExists = await prisma.user.findUnique({ where: { email: user.email as string } });
+                if (!userExists) {
+                    await prisma.user.create({
+                        data: {
+                            username: user.name as string,
+                            email: user.email as string,
+                            image: user.image as string
+                        }
+                    })
+                }
 
-
-                // if (!userExists) {
-                //     await prisma.user.create({
-                //         data: {
-                //             username: user.name as string,
-                //             email: user.email as string,
-                //             image: user.image as string
-                //         }
-                //     })
-                // }
                 return true;
 
-            } catch (error) {
-                console.log(error)
-                return false
+            } catch (error: any) {
+                console.log("Error checking if user exists: ", error.message);
+                return false;
             }
         },
     },
@@ -59,4 +54,6 @@ export async function getCurrentUser() {
     const session = await getServerSession(authOptions)
     return session;
 }
+
+
 

@@ -1,5 +1,19 @@
 import Prompt from './Prompt';
 
+type Post = {
+	// [x: string]: any;
+	id: string;
+	creatorId: string;
+	creator: {
+		id: string;
+		email: string;
+		username: string;
+		image: string;
+	};
+	prompt: string;
+	tag: string;
+};
+
 type Props = {
 	name: string | any;
 	desc: string;

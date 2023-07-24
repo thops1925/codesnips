@@ -102,10 +102,8 @@ interface OAuthConfig {
 // 	};
 // }
 
-export type Post = {
+export interface Post {
 	// [x: string]: any;
-	id: string;
-	creatorId: string;
 	creator: {
 		id: string;
 		email: string;
@@ -155,6 +153,19 @@ export interface ProjectInterface {
 		id: string;
 	};
 }
+export interface Post {
+	// [x: string]: any;
+	id: string;
+	creatorId: string;
+	creator: {
+		id: string;
+		email: string;
+		username: string;
+		image: string;
+	};
+	prompt: string;
+	tag: string;
+}
 
 export interface UserProfile {
 	id: string;
@@ -192,3 +203,4 @@ export interface ProjectForm {
 	githubUrl: string;
 	category: string;
 }
+

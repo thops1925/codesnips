@@ -20,11 +20,11 @@ const MyProfile = () => {
 		getData();
 	}, [id]);
 
-	const handleEdit = (id: Post) => {
+	const handleEdit = (id: any) => {
 		router.push(`/update-prompt?id=${id.id}`);
 	};
 
-	const handleDelete = async (id: Post) => {
+	const handleDelete = async (id: any) => {
 		const hasConfirm = confirm('Are you sure?');
 
 		if (hasConfirm) {
@@ -32,7 +32,7 @@ const MyProfile = () => {
 				await fetch(`/api/prompt/${id.id}`, {
 					method: 'DELETE',
 				});
-				const filteredPosts = post.filter((item: Post) => item.id !== id.id);
+				const filteredPosts = post.filter((item: any) => item.id !== id.id);
 
 				setPost(filteredPosts);
 			} catch (error) {

@@ -3,14 +3,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import AuthProviders from './AuthProviders';
+import { signOut, } from 'next-auth/react';
+import Button from './Button';
+
 
 type Props = {
 	session: any;
-	signOut: any;
-	signIn: any;
 };
 
-const DesktopNav = ({ session, signOut }: Props) => {
+const DesktopNav = ({ session }: Props) => {
 
 	return (
 		<div className='sm:flex hidden'>
@@ -20,9 +21,11 @@ const DesktopNav = ({ session, signOut }: Props) => {
 						Create Post
 					</Link>
 
-					<button onClick={() => signOut()} type='button' className='rounded-full font-bold tracking-wide border border-black  px-5 py-3 h-12'>
-						Sign Out
-					</button>
+					<Button
+						type='button'
+						title='Sign Out'
+						handleClick={() => signOut()}
+					/>
 
 					<Link href='/profile'>
 						<Image
@@ -36,7 +39,7 @@ const DesktopNav = ({ session, signOut }: Props) => {
 				</div>
 			) : (
 				<>
-					{session &&
+					{!session &&
 						<AuthProviders />
 					}
 				</>

@@ -4,7 +4,7 @@ import Profile from '@app/components/Profile';
 import { desc } from '@lib/desc';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const UserProfile = ({ params }: any) => {
 	const searchParams = useSearchParams();
@@ -20,7 +20,11 @@ const UserProfile = ({ params }: any) => {
 
 	return (
 		<>
-			<Profile name={userName} desc={desc} data={post} handleEdit={() => {}} handleDelete={() => {}} />
+			<Profile
+				name={userName}
+				desc={desc}
+				data={post}
+				handleEdit={() => { }} handleDelete={() => { }} />
 		</>
 	);
 };
