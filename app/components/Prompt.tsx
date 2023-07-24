@@ -7,7 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 type Props = {
-	post: Post;
+	post: any;
 	handleEdit: any;
 	handleDelete: any;
 };

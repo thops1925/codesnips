@@ -28,10 +28,16 @@ const MobileViewNav = ({ session }: Props) => {
 					/>
 					{dropDown && (
 						<div className='absolute right-0 top-full z-40 mt-3 flex h-screen w-screen flex-col items-center justify-start gap-2 rounded-lg p-5 backdrop-blur'>
-							<Link href='/profile' onClick={() => setDropDown(false)} className='h-12 font-bold capitalize  tracking-wide'>
+							<Link
+								href='/profile'
+								onClick={() => setDropDown(false)}
+								className='h-12 font-bold capitalize  tracking-wide'>
 								my profile
 							</Link>
-							<Link href='/create-prompt' className=' h-12 font-bold capitalize tracking-wide' onClick={() => setDropDown(false)}>
+							<Link
+								href='/create-prompt'
+								className=' h-12 font-bold capitalize tracking-wide'
+								onClick={() => setDropDown(false)}>
 								Create Post
 							</Link>
 

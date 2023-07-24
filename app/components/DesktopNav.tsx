@@ -17,7 +17,9 @@ const DesktopNav = ({ session }: Props) => {
 		<div className='sm:flex hidden'>
 			{session?.user ? (
 				<div className='flex gap-3 md:gap-5 items-center'>
-					<Link href='/create-prompt' className='text-white rounded-full bg-black px-5 py-3 font-bold tracking-wide h-12'>
+					<Link
+						href='/create-prompt'
+						className='text-white rounded-full bg-black px-5 py-3 font-bold tracking-wide h-12'>
 						Create Post
 					</Link>
 

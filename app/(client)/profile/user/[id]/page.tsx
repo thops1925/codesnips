@@ -24,7 +24,9 @@ const UserProfile = ({ params }: any) => {
 				name={userName}
 				desc={desc}
 				data={post}
-				handleEdit={() => { }} handleDelete={() => { }} />
+				handleEdit={() => { }}
+				handleDelete={() => { }}
+			/>
 		</>
 	);
 };

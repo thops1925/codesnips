@@ -47,7 +47,13 @@ const MyProfile = () => {
 
 	return (
 		<div className='flex justify-center items-center flex-col max-w-full'>
-			<Profile name='Profile' desc={desc} data={post} handleEdit={handleEdit} handleDelete={handleDelete} />
+			<Profile
+				name='Profile'
+				desc={desc}
+				data={post}
+				handleEdit={handleEdit}
+				handleDelete={handleDelete}
+			/>
 		</div>
 	);
 };

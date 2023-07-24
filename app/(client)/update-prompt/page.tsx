@@ -67,7 +67,13 @@ const EditPrompt = () => {
 			</div>
 		);
 
-	return <Form type='Save' post={post} setPost={setPost} submitting={submitting} handleSubmit={Edit} />;
+	return <Form
+		type='Save'
+		post={post}
+		setPost={setPost}
+		submitting={submitting}
+		handleSubmit={Edit}
+	/>;
 };
 
 export default EditPrompt;

@@ -23,7 +23,7 @@ const Feed = ({ data }: any) => {
 
 	const filterSearch = (searchText: string) => {
 		const regex = new RegExp(searchText, 'i'); // 'i' flag for case-insensitive search
-		const res = post.filter((item: Post) => regex.test(item.creator.username) || regex.test(item.prompt) || regex.test(item.tag));
+		const res = post.filter((item: any) => regex.test(item.creator.username) || regex.test(item.prompt) || regex.test(item.tag));
 		setSearchData(res);
 	};
 
@@ -39,7 +39,10 @@ const Feed = ({ data }: any) => {
 					className='block w-full my-6 rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0'
 				/>
 			</form>
-			{searchText ? <PromptList data={searchData} /> : <PromptList data={post} />}
+			{searchText ?
+				<PromptList data={searchData} />
+				:
+				<PromptList data={post} />}
 		</section>
 	);
 };

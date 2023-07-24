@@ -11,6 +11,7 @@ import prisma from '@lib/prisma';
 
 const Home = async () => {
 	const data = await prisma.prompt.findMany({});
+	console.log(data)
 
 	return (
 		<section className='flex flex-col items-center justify-center w-full'>
@@ -27,9 +28,12 @@ const Home = async () => {
 					placeholder='blur' />
 			</div>
 			<Suspense
-				fallback={<Loading />}>
+				fallback={
+					<Loading />
+				}>
 				<Feed
-					data={data} />
+					data={data}
+				/>
 			</Suspense>
 		</section>
 	);
