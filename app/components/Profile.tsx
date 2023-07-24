@@ -22,7 +22,11 @@ type Props = {
 	handleDelete: any;
 };
 
-const Profile = ({ name, desc, data, handleEdit, handleDelete }: Props) => {
+const Profile = ({ name,
+	desc,
+	data,
+	handleEdit,
+	handleDelete }: Props) => {
 	return (
 		<div className='container sm:container lg:container md:container flex justify-center items-center flex-col my-4'>
 			<div className='flex justify-start items-start flex-col space-y-3'>
@@ -39,8 +43,12 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }: Props) => {
 					<Prompt
 						post={post}
 						key={post.id}
-						handleEdit={() => handleEdit && handleEdit(post)}
-						handleDelete={() => handleDelete && handleDelete(post)}
+						handleEdit={() =>
+							handleEdit
+							&& handleEdit(post)}
+						handleDelete={() =>
+							handleDelete
+							&& handleDelete(post)}
 					/>
 				))}
 			</div>

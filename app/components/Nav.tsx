@@ -7,6 +7,7 @@ import { getCurrentUser } from '@lib/session';
 
 const Nav = async () => {
 	const session = await getCurrentUser()
+	console.log(session)
 	return (
 		<nav className='flex items-center justify-between my-4'>
 			<Link
@@ -18,7 +19,8 @@ const Nav = async () => {
 					className='h-14 w-24 object-contain blur-0 lg:h-20 lg:w-24' />
 			</Link>
 			<DesktopNav
-				session={session} />
+				session={session}
+			/>
 			<MobileViewNav
 				session={session}
 			/>

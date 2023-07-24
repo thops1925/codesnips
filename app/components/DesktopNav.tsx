@@ -7,15 +7,21 @@ import { signOut, } from 'next-auth/react';
 import Button from './Button';
 
 
+interface userT {
+	user: {
+		name: string;
+		email: string;
+		image: string
+	}
+}
 type Props = {
-	session: any;
+	session: any
 };
 
 const DesktopNav = ({ session }: Props) => {
-
 	return (
 		<div className='sm:flex hidden'>
-			{session?.user ? (
+			{session ? (
 				<div className='flex gap-3 md:gap-5 items-center'>
 					<Link
 						href='/create-prompt'

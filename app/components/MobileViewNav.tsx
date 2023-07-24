@@ -8,9 +8,17 @@ import { signOut, } from 'next-auth/react';
 import Button from './Button';
 
 
+interface userT {
+	user: {
+		name: string;
+		email: string;
+		image: string
+	}
+}
 type Props = {
-	session: any;
+	session: any
 };
+
 const MobileViewNav = ({ session }: Props) => {
 
 	const [dropDown, setDropDown] = useState(false);
