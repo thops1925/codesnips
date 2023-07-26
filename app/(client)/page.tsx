@@ -4,20 +4,20 @@ import logo from '@public/assets/images/thops3.png';
 import Image from 'next/image';
 import Loading from './loading';
 import { Suspense } from 'react';
-import prisma from '@lib/prisma';
-
+import { getCurrentUser } from '@lib/session';
+import { fetchAll } from '@lib/action';
+import { Post, Session } from '@app/components/PromptList ';
 
 
 
 const Home = async () => {
-	const data = await prisma.prompt.findMany({});
-	console.log(data)
+	const session = await getCurrentUser() as unknown as Session
+	const post = await fetchAll() as unknown as Post
 
 	return (
 		<section className='flex flex-col items-center justify-center w-full'>
 			<div className='flex w-full max-w-7xl flex-col items-center justify-center gap-2'>
-				<h1
-					className='text-normal text-center font-mono tracking-wider text-gray-800 '>
+				<h1 className='text-normal text-center font-mono tracking-wider text-gray-800 '>
 					{desc}
 				</h1>
 				<Image
@@ -27,12 +27,10 @@ const Home = async () => {
 					blurDataURL='data:...'
 					placeholder='blur' />
 			</div>
-			<Suspense
-				fallback={
-					<Loading />
-				}>
+			<Suspense fallback={<Loading />}>
 				<Feed
-					data={data}
+					post={post}
+					session={session}
 				/>
 			</Suspense>
 		</section>

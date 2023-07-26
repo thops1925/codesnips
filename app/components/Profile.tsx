@@ -20,13 +20,14 @@ type Props = {
 	data: Post[];
 	handleEdit: any;
 	handleDelete: any;
+	session: any
 };
 
 const Profile = ({ name,
 	desc,
 	data,
 	handleEdit,
-	handleDelete }: Props) => {
+	handleDelete, session }: Props) => {
 	return (
 		<div className='container sm:container lg:container md:container flex justify-center items-center flex-col my-4'>
 			<div className='flex justify-start items-start flex-col space-y-3'>
@@ -41,6 +42,7 @@ const Profile = ({ name,
 			<div className='grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-4 mx-auto'>
 				{data.map((post: Post) => (
 					<Prompt
+						session={session}
 						post={post}
 						key={post.id}
 						handleEdit={() =>

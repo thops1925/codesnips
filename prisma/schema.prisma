@@ -46,6 +46,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  posts         Post[] // Fix the relation field name to 'posts'
 }
 
 model VerificationToken {
@@ -56,8 +57,12 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Prompt {
-  id     String  @id @default(cuid())
-  prompt String?
-  tag    String?
+model Post {
+  id      String  @id @default(cuid())
+  title   String
+  content String
+  userId  String?
+  users   User[] // Fix the relation field name to 'posts'
+
+  @@index([userId])
 }

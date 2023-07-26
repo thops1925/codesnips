@@ -7,7 +7,6 @@ import { getCurrentUser } from '@lib/session';
 
 const Nav = async () => {
 	const session = await getCurrentUser()
-	console.log(session)
 	return (
 		<nav className='flex items-center justify-between my-4'>
 			<Link

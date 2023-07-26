@@ -5,20 +5,12 @@ import Link from 'next/link';
 import AuthProviders from './AuthProviders';
 import { signOut, } from 'next-auth/react';
 import Button from './Button';
+import { Session } from './PromptList ';
 
 
-interface userT {
-	user: {
-		name: string;
-		email: string;
-		image: string
-	}
-}
-type Props = {
-	session: any
-};
 
-const DesktopNav = ({ session }: Props) => {
+
+const DesktopNav = ({ session }: { session: Session }) => {
 	return (
 		<div className='sm:flex hidden'>
 			{session ? (
@@ -37,7 +29,7 @@ const DesktopNav = ({ session }: Props) => {
 
 					<Link href='/profile'>
 						<Image
-							src={session?.user?.image}
+							src={session.image}
 							alt='logo'
 							className='rounded-full blur-0 object-fit h-12 w-12 border border-black'
 							width={100}

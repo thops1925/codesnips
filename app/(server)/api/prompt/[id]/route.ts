@@ -2,14 +2,14 @@ import prisma from "@lib/prisma";
 
 
 type body = {
-	prompt: string;
-	tag: string;
+	title: string;
+	content: string;
 };
 
 // search
 export async function GET(req: Request, { params }: any) {
 	try {
-		const prompt = await prisma.prompt.findUnique({
+		const prompt = await prisma.post.findUnique({
 			where: { id: params.id },
 			include: { creator: true },
 		});
@@ -20,16 +20,15 @@ export async function GET(req: Request, { params }: any) {
 
 		return new Response(JSON.stringify(prompt), { status: 200 });
 	} catch (error) {
-		console.log(error);
 	}
 }
 // update
 export async function PATCH(req: Request, { params }: any) {
 	const body: body = await req.json();
-	const { prompt, tag } = body;
+	const { title, content } = body;
 
 	try {
-		const exist = await prisma.prompt.findUnique({
+		const exist = await prisma.post.findUnique({
 			where: { id: params.id },
 		});
 
@@ -37,26 +36,24 @@ export async function PATCH(req: Request, { params }: any) {
 			return new Response('Prompt not found', { status: 404 });
 		}
 
-		const updatedPrompt = await prisma.prompt.update({
+		const updatedPrompt = await prisma.post.update({
 			where: { id: params.id },
-			data: { prompt, tag },
+			data: { title, content },
 		});
 
 		return new Response(JSON.stringify(updatedPrompt), { status: 200 });
 	} catch (error) {
-		console.log(error);
 	}
 }
 
 // delete
 export async function DELETE(req: Request, { params }: any) {
 	try {
-		await prisma.prompt.delete({
+		await prisma.post.delete({
 			where: { id: params.id },
 			include: { creator: true },
 		});
 		return new Response('Prompt Deleted', { status: 200 });
 	} catch (error) {
-		console.log(error);
 	}
 }

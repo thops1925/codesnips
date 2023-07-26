@@ -6,28 +6,19 @@ import Link from 'next/link';
 import AuthProviders from './AuthProviders';
 import { signOut, } from 'next-auth/react';
 import Button from './Button';
+import { Session } from './PromptList ';
 
 
-interface userT {
-	user: {
-		name: string;
-		email: string;
-		image: string
-	}
-}
-type Props = {
-	session: any
-};
 
-const MobileViewNav = ({ session }: Props) => {
+const MobileViewNav = ({ session }: { session: Session }) => {
 
 	const [dropDown, setDropDown] = useState(false);
 	return (
 		<div className='relative mx-3 flex sm:hidden'>
-			{session?.user ? (
+			{session ? (
 				<div className='flex'>
 					<Image
-						src={logo}
+						src={session.image}
 						alt='logo'
 						className='h-12 w-12 rounded-full border border-black object-contain blur-0 '
 						width={100}
@@ -35,9 +26,9 @@ const MobileViewNav = ({ session }: Props) => {
 						onClick={() => setDropDown((prev) => !prev)}
 					/>
 					{dropDown && (
-						<div className='absolute right-0 top-full z-40 mt-3 flex h-screen w-screen flex-col items-center justify-start gap-2 rounded-lg p-5 backdrop-blur'>
-							<Link
-								href='/profile'
+						<div className='absolute right-0 top-full z-40 mt-3 flex h-screen w-screen 
+						flex-col items-center justify-start gap-2 rounded-lg p-5 backdrop-blur'>
+							<Link href='/profile'
 								onClick={() => setDropDown(false)}
 								className='h-12 font-bold capitalize  tracking-wide'>
 								my profile

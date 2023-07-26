@@ -5,8 +5,8 @@ import Link from 'next/link';
 type Props = {
 	type: string;
 	post: {
-		prompt: string;
-		tag: string;
+		title: string;
+		content: string;
 	};
 	setPost: any;
 	handleSubmit: any;
@@ -25,14 +25,15 @@ const Form = ({ type,
 			</h1>
 			<form
 				onSubmit={handleSubmit}
-				className='mt-10 w-full flex flex-col rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5 '>
+				className='mt-10 w-full flex flex-col rounded-xl border border-gray-200
+				 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5 '>
 				<label>
 					<span className='font-satoshi font-semibold text-base text-gray-700 '>
 						Code ...
 					</span>
 					<textarea
-						value={post.prompt}
-						onChange={(e) => setPost({ ...post, prompt: e.target.value })}
+						value={post.title}
+						onChange={(e) => setPost({ ...post, title: e.target.value })}
 						required
 						className=' font-satoshi w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0 '
 						placeholder='PASTE YOUR CODE HERE'
@@ -43,7 +44,7 @@ const Form = ({ type,
 						TITLE
 					</span>
 					<input
-						value={post.tag}
+						value={post.content}
 						onChange={(e) => setPost({ ...post, tag: e.target.value })}
 						required
 						className=' font-satoshi  w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0'

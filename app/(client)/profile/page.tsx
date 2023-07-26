@@ -36,7 +36,6 @@ const MyProfile = () => {
 
 				setPost(filteredPosts);
 			} catch (error) {
-				console.log(error);
 			}
 		}
 	};

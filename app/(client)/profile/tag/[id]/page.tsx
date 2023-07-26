@@ -24,7 +24,6 @@ const TagProfile = ({ params }: any) => {
 				console.log('Failed to fetch data');
 			}
 		} catch (error) {
-			console.log(error);
 		} finally {
 			setLoading(false);
 		}
@@ -34,7 +33,6 @@ const TagProfile = ({ params }: any) => {
 		getData(id);
 	}, [id]);
 
-	console.log(data);
 	const { creatorId, creator, prompt, tag }: any = data || {};
 
 	if (loading) {

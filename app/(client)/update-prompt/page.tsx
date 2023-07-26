@@ -18,7 +18,7 @@ const EditPrompt = () => {
 	const id = searchParams.get('id');
 
 	const [submitting, setIsSubmitting] = useState(false);
-	const [post, setPost] = useState({ prompt: '', tag: '' });
+	const [post, setPost] = useState({ title: '', content: '' });
 
 	useEffect(() => {
 		const controller = new AbortController();
@@ -26,8 +26,8 @@ const EditPrompt = () => {
 		const getPromptDetails = async () => {
 			const data = await getUpdate(id);
 			setPost({
-				prompt: data.prompt,
-				tag: data.tag,
+				title: data.prompt,
+				content: data.tag,
 			});
 		};
 
@@ -48,8 +48,8 @@ const EditPrompt = () => {
 				method: 'PATCH',
 
 				body: JSON.stringify({
-					prompt: post.prompt,
-					tag: post.tag,
+					prompt: post.title,
+					tag: post.content,
 				}),
 			});
 			if (response.ok) return router.push('/');
