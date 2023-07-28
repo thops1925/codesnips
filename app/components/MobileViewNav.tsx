@@ -6,11 +6,11 @@ import Link from 'next/link';
 import AuthProviders from './AuthProviders';
 import { signOut, } from 'next-auth/react';
 import Button from './Button';
-import { Session } from './PromptList ';
+import { Provider } from '@app/(client)/layout';
 
 
 
-const MobileViewNav = ({ session }: { session: Session }) => {
+const MobileViewNav = ({ session }: { session: Provider }) => {
 
 	const [dropDown, setDropDown] = useState(false);
 	return (

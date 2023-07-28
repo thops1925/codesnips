@@ -4,15 +4,15 @@ import logo from '@public/assets/images/thops3.png';
 import Image from 'next/image';
 import Loading from './loading';
 import { Suspense } from 'react';
-import { getCurrentUser } from '@lib/session';
-import { fetchAll } from '@lib/action';
+import { fetchAll, getSession } from '@lib/action';
 import { Post, Session } from '@app/components/PromptList ';
 
 
-
 const Home = async () => {
-	const session = await getCurrentUser() as unknown as Session
 	const post = await fetchAll() as unknown as Post
+	const posts = JSON.parse(JSON.stringify(post)) as any
+	const session = await getSession() as unknown as Session
+	console.log(posts)
 
 	return (
 		<section className='flex flex-col items-center justify-center w-full'>
@@ -29,7 +29,7 @@ const Home = async () => {
 			</div>
 			<Suspense fallback={<Loading />}>
 				<Feed
-					post={post}
+					post={posts}
 					session={session}
 				/>
 			</Suspense>

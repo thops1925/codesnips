@@ -1,10 +1,21 @@
 
+import { authOptions } from '@app/(server)/api/auth/[...nextauth]/route';
 import Nav from '@app/components/Nav';
+import { getCurrentUser } from '@lib/session';
 import '@styles/globals.css';
+import { getServerSession } from 'next-auth';
+import { Suspense } from 'react';
 
 
+export interface Provider {
+	name: string;
+	email: string;
+	image: string
+}
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+
 	return (
 		<html lang='eng' suppressHydrationWarning={true}>
 			<body

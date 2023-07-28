@@ -58,11 +58,8 @@ model VerificationToken {
 }
 
 model Post {
-  id      String  @id @default(cuid())
+  id      String @id @default(cuid())
   title   String
   content String
-  userId  String?
-  users   User[] // Fix the relation field name to 'posts'
-
-  @@index([userId])
+  users   User[] // Fix the relation field name to 'users'
 }

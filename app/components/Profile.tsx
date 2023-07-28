@@ -1,4 +1,5 @@
 import Prompt from './Prompt';
+import { Session } from './PromptList ';
 
 type Post = {
 	// [x: string]: any;
@@ -20,10 +21,11 @@ type Props = {
 	data: Post[];
 	handleEdit: any;
 	handleDelete: any;
-	session: any
+	session: Session
 };
 
-const Profile = ({ name,
+const Profile = ({
+	name,
 	desc,
 	data,
 	handleEdit,

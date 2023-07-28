@@ -6,11 +6,12 @@ import AuthProviders from './AuthProviders';
 import { signOut, } from 'next-auth/react';
 import Button from './Button';
 import { Session } from './PromptList ';
+import { Provider } from '@app/(client)/layout';
 
 
 
 
-const DesktopNav = ({ session }: { session: Session }) => {
+const DesktopNav = ({ session }: { session: Provider }) => {
 	return (
 		<div className='sm:flex hidden'>
 			{session ? (
