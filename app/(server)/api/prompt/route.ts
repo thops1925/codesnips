@@ -7,8 +7,8 @@ export async function GET() {
         // Connect to the database (not necessary with Prisma as it manages the connection internally)
         // await connectToDB();
 
-        const prompts = await prisma.prompt.findMany({
-            include: { creator: true },
+        const prompts = await prisma.post.findMany({
+            include: { users: true },
         });
         // Fetch all prompts and include the 'creator' field
 
