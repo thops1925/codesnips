@@ -7,6 +7,7 @@ export const fetchAll = async () => {
             users: true, // Fix the relation field name to 'user'
         },
     });
+    if (!posts.length) return 'no record found'
     return posts
 };
 

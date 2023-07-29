@@ -12,7 +12,7 @@ const Home = async () => {
 	const post = await fetchAll() as unknown as Post
 	const posts = JSON.parse(JSON.stringify(post)) as any
 	const session = await getSession() as unknown as Session
-	console.log(posts)
+	console.log(post)
 
 	return (
 		<section className='flex flex-col items-center justify-center w-full'>

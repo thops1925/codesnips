@@ -1,51 +1,15 @@
-'use client';
-import { use, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Form from '@app/components/Form';
-import { getCurrentUser } from '@lib/session';
+import { Session } from '@app/components/PromptList ';
+import { getSession } from '@lib/action';
+import { redirect } from 'next/navigation';
 
-const FormFeed = () => {
-	const router = useRouter();
-	const session = use(getCurrentUser())
-	const [submitting, setIsSubmitting] = useState(false);
-	const [post, setPost] = useState({ title: '', content: '' });
-
-	const createPrompt = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		setIsSubmitting(true);
-
-		try {
-			const response = await fetch('/api/prompt/new', {
-				method: 'POST',
-				body: JSON.stringify({
-					userId: session?.user?.id,
-					title: post.title,
-					content: post.content,
-				}),
-			});
-
-			if (response.ok) {
-				router.push('/');
-			}
-		} catch (error) {
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
-
-	if (!session)
-		return (
-			<div>
-				<p>Please login</p>
-			</div>
-		);
-
-	return <Form
-		type='Create'
-		post={post}
-		setPost={setPost}
-		submitting={submitting}
-		handleSubmit={createPrompt} />;
+const FormFeed = async () => {
+	const [session] = await getSession() as unknown as Session[]
+	if (!session) {
+		redirect('/')
+	} else {
+		return <Form type="Create" session={session} />;
+	}
 };
 
 export default FormFeed;

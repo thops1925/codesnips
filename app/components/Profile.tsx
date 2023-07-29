@@ -1,27 +1,16 @@
 import Prompt from './Prompt';
-import { Session } from './PromptList ';
+import { Post, Session } from './PromptList ';
 
-type Post = {
-	// [x: string]: any;
-	id: string;
-	creatorId: string;
-	creator: {
-		id: string;
-		email: string;
-		username: string;
-		image: string;
-	};
-	prompt: string;
-	tag: string;
-};
+
 
 type Props = {
 	name: string | any;
 	desc: string;
-	data: Post[];
+	data: Post;
 	handleEdit: any;
 	handleDelete: any;
 	session: Session
+
 };
 
 const Profile = ({
@@ -44,6 +33,7 @@ const Profile = ({
 			<div className='grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-4 mx-auto'>
 				{data.map((post: Post) => (
 					<Prompt
+						user={post.user[0]}
 						session={session}
 						post={post}
 						key={post.id}
