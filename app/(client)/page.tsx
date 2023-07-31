@@ -6,13 +6,15 @@ import Loading from './loading';
 import { Suspense } from 'react';
 import { fetchAll, getSession } from '@lib/action';
 import { Post, Session } from '@app/components/PromptList ';
+import { getServerSession } from 'next-auth/next';
 
 
 const Home = async () => {
 	const post = await fetchAll() as unknown as Post
 	const posts = JSON.parse(JSON.stringify(post)) as any
-	const session = await getSession() as unknown as Session
-	console.log(post)
+	const [session] = await getSession() as unknown as Session[]
+	// const session = await getServerSession()
+	console.log(session)
 
 	return (
 		<section className='flex flex-col items-center justify-center w-full'>

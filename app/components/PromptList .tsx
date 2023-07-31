@@ -30,7 +30,7 @@ export const PromptList = ({
 	session: Session
 }) => {
 	return (
-		<div className='flex flex-wrap'>
+		<div className='flex flex-wrap items-center justify-start '>
 			{postData.map((post: Post) => {
 				return (
 					<Prompt

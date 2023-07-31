@@ -11,7 +11,7 @@ export async function GET(req: Request, { params }: any) {
 	try {
 		const prompt = await prisma.post.findUnique({
 			where: { id: params.id },
-			include: { creator: true },
+			include: { users: true },
 		});
 
 		if (!prompt) {
@@ -51,7 +51,7 @@ export async function DELETE(req: Request, { params }: any) {
 	try {
 		await prisma.post.delete({
 			where: { id: params.id },
-			include: { creator: true },
+			include: { users: true },
 		});
 		return new Response('Prompt Deleted', { status: 200 });
 	} catch (error) {

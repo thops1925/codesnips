@@ -1,21 +1,14 @@
-import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
-
+import prisma from "@/lib/prisma";
 export async function GET() {
     try {
-        // Connect to the database (not necessary with Prisma as it manages the connection internally)
-        // await connectToDB();
-
         const prompts = await prisma.post.findMany({
             include: { users: true },
         });
-        // Fetch all prompts and include the 'creator' field
 
         if (!prompts.length) {
             return new Response('No prompts found', { status: 404 });
         }
-
         return new Response(JSON.stringify(prompts), {
             status: 200,
             headers: { 'Content-Type': 'application/json' },

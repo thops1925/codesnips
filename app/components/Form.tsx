@@ -14,10 +14,13 @@ const Form = ({
 	type,
 	session
 }: Props) => {
-	console.log(session)
-	const [submitting, setIsSubmitting] = useState(false);
-	const [formData, setPost] = useState({ title: '', content: '' });
-	console.log(formData)
+	const [submitting, setIsSubmitting] =
+		useState(false);
+	const [formData, setPost] =
+		useState({
+			title: '',
+			content: ''
+		});
 
 	const createPrompt = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();

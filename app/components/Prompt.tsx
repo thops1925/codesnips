@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Post, Session, User } from './PromptList ';
+import Modal from './Model';
 
 type Props = {
 	post: Post
@@ -34,7 +35,7 @@ const Prompt = ({
 
 	const handleProfile = () => {
 		if (user.id === session.userId) return router.push('/profile');
-		router.push(`/profile/user/${user.id}?name=${user.name}`);
+		router.push(`/profile/user/${post.id}?name=${user.name}`);
 	};
 
 	const handleTagClick = (id: string) => {
@@ -43,9 +44,9 @@ const Prompt = ({
 
 	return (
 		<div className='rounded-lg border border-gray-300 bg-white/20
-		 bg-clip-padding backdrop-blur-lg backdrop-filter w-full px-4 py-4  
-		 max-w-sm  min-w-md max-h-full h-60'>
-			<div className='flex justify-between items-start gap-5'>
+		 bg-clip-padding backdrop-blur-lg backdrop-filter w-full px-4 py-4 
+		 max-w-sm  min-w-md max-h-md h-60'>
+			<div className='flex justify-between items-start'>
 				<div className='flex flex-row justify-center items-center gap-3 cursor-pointer'>
 					<Link href='/profile'>
 						<Image
@@ -100,7 +101,9 @@ const Prompt = ({
 				${line
 						? 'text-green-600 bg-slate-700 mx-4 '
 						: 'line-clamp-6 '}`}>
+					{/* <Modal> */}
 					{post.content}
+					{/* </Modal> */}
 				</code>
 			</div>
 

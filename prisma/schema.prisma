@@ -46,7 +46,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  posts         Post[] // Fix the relation field name to 'posts'
+  posts         Post[]
 }
 
 model VerificationToken {
@@ -60,6 +60,6 @@ model VerificationToken {
 model Post {
   id      String @id @default(cuid())
   title   String
-  content String
-  users   User[] // Fix the relation field name to 'users'
+  content String @db.Text
+  users   User[]
 }

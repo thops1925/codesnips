@@ -1,8 +1,6 @@
 import Prompt from './Prompt';
 import { Post, Session } from './PromptList ';
 
-
-
 type Props = {
 	name: string | any;
 	desc: string;
@@ -18,7 +16,10 @@ const Profile = ({
 	desc,
 	data,
 	handleEdit,
-	handleDelete, session }: Props) => {
+	handleDelete,
+	session
+}: Props) => {
+	console.log(data)
 	return (
 		<div className='container sm:container lg:container md:container flex justify-center items-center flex-col my-4'>
 			<div className='flex justify-start items-start flex-col space-y-3'>
@@ -31,20 +32,23 @@ const Profile = ({
 			</div>
 
 			<div className='grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-4 mx-auto'>
-				{data.map((post: Post) => (
-					<Prompt
-						user={post.user[0]}
-						session={session}
-						post={post}
-						key={post.id}
-						handleEdit={() =>
-							handleEdit
-							&& handleEdit(post)}
-						handleDelete={() =>
-							handleDelete
-							&& handleDelete(post)}
-					/>
-				))}
+				{data.map((post: Post) => {
+					return (
+						<Prompt
+							user={post.users[0]}
+							session={session}
+							post={post}
+							key={post.id}
+							handleEdit={() =>
+								handleEdit
+								&& handleEdit(post)}
+							handleDelete={() =>
+								handleDelete
+								&& handleDelete(post)}
+						/>
+					)
+				}
+				)}
 			</div>
 		</div>
 	);
