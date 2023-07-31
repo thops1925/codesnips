@@ -10,32 +10,31 @@
     "cypress": "cypress open"
   },
   "dependencies": {
-    "@prisma/client": "^4.16.0",
+    "@auth/prisma-adapter": "^1.0.1",
+    "@next-auth/prisma-adapter": "^1.0.7",
     "@tanstack/react-query": "^4.29.14",
     "@types/node": "20.2.5",
-    "@types/react": "18.2.7",
+    "@types/react": "^18.2.15",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
     "bcrypt": "^5.1.0",
     "eslint": "8.41.0",
     "eslint-config-next": "^13.4.6",
-    "mongodb": "^5.5.0",
-    "mongoose": "^7.2.2",
     "next": "^13.4.6",
-    "next-auth": "^4.22.1",
     "postcss": "8.4.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "react-share": "^4.4.1",
     "tailwindcss": "3.3.2",
-    "typescript": "5.0.4"
+    "typescript": "^5.1.6"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^4.29.9",
     "@types/jest": "^29.5.2",
+    "@types/next-auth": "^3.15.0",
     "prettier": "^2.8.8",
-    "prisma": "^4.16.0",
+    "prisma": "^5.0.0",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1"
   },

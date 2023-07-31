@@ -2,6 +2,8 @@
 // import { connectToDB } from "@app/utils/database";
 // import { NextResponse } from "next/server";
 
+import prisma from "@lib/prisma";
+
 // export const GET = async (request: any, { params }: any) => {
 //     try {
 //         await connectToDB()
@@ -14,9 +16,7 @@
 //     }
 // } 
 
-import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
 
 export const GET = async (request: any, { params }: any) => {
     try {

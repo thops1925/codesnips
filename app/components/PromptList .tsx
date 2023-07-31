@@ -1,11 +1,48 @@
 import Prompt from './Prompt';
 
-export const PromptList = ({ data }: { data: Post[] }) => {
+export interface Post {
+	[x: string]: any;
+	id: string
+	title: string
+	content: string
+	user: User[]
+}
+export interface Session {
+	id: string;
+	sessionToken: string;
+	userId: string;
+	expires: string
+}
+
+export interface User {
+	id: string
+	name: string
+	email: string
+	emailVerified: boolean
+	image: string
+}
+
+export const PromptList = ({
+	postData,
+	session
+}: {
+	postData: Post,
+	session: Session
+}) => {
 	return (
-		<div className='grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-4 mx-auto'>
-			{data.map((post: Post) => (
-				<Prompt post={post} key={post.id} handleEdit={undefined} handleDelete={undefined} />
-			))}
+		<div className='flex flex-wrap items-center justify-start '>
+			{postData.map((post: Post) => {
+				return (
+					<Prompt
+						user={post.users[0]}
+						post={post}
+						session={session}
+						key={post.id}
+						handleEdit={undefined}
+						handleDelete={undefined}
+					/>
+				);
+			})}
 		</div>
 	);
 };

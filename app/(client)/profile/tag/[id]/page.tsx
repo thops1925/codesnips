@@ -10,21 +10,20 @@ const TagProfile = ({ params }: any) => {
 	const router = useRouter();
 	const { data: session } = useSession();
 	const id = params.id;
-	const [copy, setCopy] = useState<string>('');
-	const [data, setData] = useState<Tags>({});
+	const [copy, setCopy] = useState<any>('');
+	const [data, setData] = useState<any>({});
 	const [loading, setLoading] = useState(true);
 
 	const getData = async (id: any) => {
 		try {
 			const res = await fetch(`/api/tag/${id}/posts`);
 			if (res.ok) {
-				const responseData: Post = await res.json();
+				const responseData: any = await res.json();
 				setData(responseData);
 			} else {
 				console.log('Failed to fetch data');
 			}
 		} catch (error) {
-			console.log(error);
 		} finally {
 			setLoading(false);
 		}
@@ -34,8 +33,7 @@ const TagProfile = ({ params }: any) => {
 		getData(id);
 	}, [id]);
 
-	console.log(data);
-	const { creatorId, creator, prompt, tag }: Tags = data || {};
+	const { creatorId, creator, prompt, tag }: any = data || {};
 
 	if (loading) {
 		return <div>Loading...</div>;
@@ -47,12 +45,24 @@ const TagProfile = ({ params }: any) => {
 	};
 	return (
 		<section className='flex justify-center items-center container sm:container lg:container md:container mx-auto'>
-			<div className='flex-1 flex-col mx-4' key={id}>
+			<div
+				className='flex-1 flex-col mx-4'
+				key={id}>
 				<div className='flex gap-3 justify-center items-center mb-4'>
-					<Image src={creator?.image} alt={id} width={40} height={40} className='rounded-full object-contain' onClick={handleProfile} />
+					<Image
+						src={creator?.image}
+						alt={id}
+						width={40}
+						height={40}
+						className='rounded-full object-contain'
+						onClick={handleProfile} />
 					<div className='flex flex-col max-w-xl min-w-md'>
-						<h3 className='font-semibold text-lg capitalize'>{creator?.username.slice(0, 6)}</h3>
-						<p className=' text-gray-400 text-lg'>{creator?.email}</p>{' '}
+						<h3 className='font-semibold text-lg capitalize'>
+							{creator?.username.slice(0, 6)}
+						</h3>
+						<p className=' text-gray-400 text-lg'>
+							{creator?.email}
+						</p>{' '}
 					</div>
 
 					<div
@@ -63,11 +73,26 @@ const TagProfile = ({ params }: any) => {
 							setTimeout(() => setCopy(''), 3000);
 						}}>
 						{copy === prompt ? (
-							<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='currentColor' className='w-8 h-8'>
-								<path strokeLinecap='round' strokeLinejoin='round' d='M4.5 12.75l6 6 9-13.5' />
+							<svg
+								xmlns='http://www.w3.org/2000/svg'
+								fill='none'
+								viewBox='0 0 24 24'
+								strokeWidth={1.5}
+								stroke='currentColor'
+								className='w-8 h-8'>
+								<path
+									strokeLinecap='round'
+									strokeLinejoin='round'
+									d='M4.5 12.75l6 6 9-13.5' />
 							</svg>
 						) : (
-							<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='currentColor' className='w-8 h-8'>
+							<svg
+								xmlns='http://www.w3.org/2000/svg'
+								fill='none'
+								viewBox='0 0 24 24'
+								strokeWidth={1.5}
+								stroke='currentColor'
+								className='w-8 h-8'>
 								<path
 									strokeLinecap='round'
 									strokeLinejoin='round'
@@ -81,12 +106,20 @@ const TagProfile = ({ params }: any) => {
 					<div className='whitespace-pre-wrap inset-0 break-words text-green-600'>{prompt}</div>
 				</div>
 				<div className='mx-4 space-x-4 mt-4'>
-					<FacebookShareButton title={tag} url={`https://codesnip-alpha.vercel.app/profile/tag/${id}?tag=${creator?.username}`}>
-						<FacebookIcon size={32} round={true} />
+					<FacebookShareButton
+						title={tag}
+						url={`https://codesnip-alpha.vercel.app/profile/tag/${id}?tag=${creator?.username}`}>
+						<FacebookIcon
+							size={32}
+							round={true} />
 					</FacebookShareButton>
 
-					<TwitterShareButton title={tag} url={`https://codesnip-alpha.vercel.app/profile/tag/${id}?tag=${creator?.username}`}>
-						<TwitterIcon size={32} round={true} />
+					<TwitterShareButton
+						title={tag}
+						url={`https://codesnip-alpha.vercel.app/profile/tag/${id}?tag=${creator?.username}`}>
+						<TwitterIcon
+							size={32}
+							round={true} />
 					</TwitterShareButton>
 				</div>
 			</div>

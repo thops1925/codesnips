@@ -1,18 +1,16 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from "@lib/prisma";
 
 export const POST = async (request: Request) => {
-	const { userId, prompt, tag } = await request.json();
+	const { id, title, content } = await request.json();
 
 	try {
-		const newPrompt = await prisma.prompt.create({
+		const newPrompt = await prisma.post.create({
 			data: {
-				creator: {
-					connect: { id: userId }
-				},
-				prompt,
-				tag
+				title,
+				content,
+				users: {
+					connect: { id: id }
+				}
 			},
 		});
 

@@ -1,26 +1,24 @@
-'use client';
-
+"use client"
 import Profile from '@app/components/Profile';
+import { Post, Session } from '@app/components/PromptList ';
+import { fetchUserFile, getSession } from '@lib/action';
 import { desc } from '@lib/desc';
-import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { use } from 'react';
 
 const UserProfile = ({ params }: any) => {
 	const searchParams = useSearchParams();
-	const userName = searchParams.get('name');
-	const id = params.id;
-	const [post, setPost] = useState([]);
-
-	const { data, isLoading } = useQuery(['user'], () =>
-		fetch(`/api/users/${id}/posts`).then((res) => res.json().then((data) => setPost(data.reverse()))),
-	);
-
-	if (isLoading && !data) return <div>loading</div>;
-
+	const userProfile = use(fetchUserFile(params.id)) as unknown as Post
+	const session = use(getSession()) as unknown as Session
 	return (
 		<>
-			<Profile name={userName} desc={desc} data={post} handleEdit={() => {}} handleDelete={() => {}} />
+			<Profile
+				name={searchParams.get('name')}
+				desc={desc}
+				data={userProfile}
+				handleEdit={() => { }}
+				handleDelete={() => { }}
+				session={session} />
 		</>
 	);
 };

@@ -1,55 +1,60 @@
 'use client';
 import Profile from '@app/components/Profile';
+import { Session } from '@app/components/PromptList ';
+import { getSession } from '@lib/action';
 import { desc } from '@lib/desc';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
 const MyProfile = () => {
-	const { data: session } = useSession();
-	const router = useRouter();
-	const id = session?.user.id;
-	const [post, setPost] = useState([]);
+    const [session] = use(getSession()) as unknown as Session[]
 
-	useEffect(() => {
-		const getData = async () => {
-			const response = await fetch(`/api/users/${id}/posts`);
-			const data = await response.json();
-			setPost(data.reverse());
-		};
-		getData();
-	}, [id]);
+    const router = useRouter();
+    const id = session.userId
+    const [post, setPost] = useState([]);
 
-	const handleEdit = (id: Post) => {
-		router.push(`/update-prompt?id=${id.id}`);
-	};
+    useEffect(() => {
+        const getData = async () => {
+            const response = await fetch(`/api/users/${id}/posts`);
+            const data = await response.json();
+            setPost(data.reverse());
+        };
+        getData();
+    }, [id]);
 
-	const handleDelete = async (id: Post) => {
-		const hasConfirm = confirm('Are you sure?');
+    console.log(session)
 
-		if (hasConfirm) {
-			try {
-				await fetch(`/api/prompt/${id.id}`, {
-					method: 'DELETE',
-				});
-				const filteredPosts = post.filter((item: Post) => item.id !== id.id);
+    const handleEdit = (id: any) => {
+        // router.push(`/update-prompt?id=${id.id}`);
+    };
 
-				setPost(filteredPosts);
-			} catch (error) {
-				console.log(error);
-			}
-		}
-	};
+    const handleDelete = async (id: any) => {
+        // const hasConfirm = confirm('Are you sure?');
 
-	if (!session) {
-		return <div>Please login</div>;
-	}
+        // if (hasConfirm) {
+        //     try {
+        //         await fetch(`/api/prompt/${id.id}`, {
+        //             method: 'DELETE',
+        //         });
+        //         const filteredPosts = post.filter((item: any) => item.id !== id.id);
 
-	return (
-		<div className='flex justify-center items-center flex-col max-w-full'>
-			<Profile name='Profile' desc={desc} data={post} handleEdit={handleEdit} handleDelete={handleDelete} />
-		</div>
-	);
+        //         setPost(filteredPosts);
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // }
+    };
+
+    if (!session) {
+        return <div>Please login</div>;
+    }
+
+    return (
+        <div className='flex justify-center items-center flex-col max-w-full'>
+            <Profile name='Profile' desc={desc} data={post} handleEdit={handleEdit} handleDelete={handleDelete} />
+        </div>
+    );
 };
 
 export default MyProfile;
